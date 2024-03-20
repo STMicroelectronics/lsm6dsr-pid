@@ -185,11 +185,9 @@ typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
   uint8_t not_used_01              : 6;
-uint8_t reg_access               :
-  2; /* shub_reg_access + func_cfg_access */
+  uint8_t reg_access               : 2; /* shub_reg_access + func_cfg_access */
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
-uint8_t reg_access               :
-  2; /* shub_reg_access + func_cfg_access */
+  uint8_t reg_access               : 2; /* shub_reg_access + func_cfg_access */
   uint8_t not_used_01              : 6;
 #endif /* DRV_BYTE_ORDER */
 } lsm6dsr_func_cfg_access_t;
@@ -468,11 +466,9 @@ typedef struct
   uint8_t ftype                    : 3;
   uint8_t usr_off_w                : 1;
   uint8_t xl_hm_mode               : 1;
-uint8_t den_mode                 :
-  3;   /* trig_en + lvl1_en + lvl2_en */
+  uint8_t den_mode                 : 3;   /* trig_en + lvl1_en + lvl2_en */
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
-uint8_t den_mode                 :
-  3;   /* trig_en + lvl1_en + lvl2_en */
+  uint8_t den_mode                 : 3;   /* trig_en + lvl1_en + lvl2_en */
   uint8_t xl_hm_mode               : 1;
   uint8_t usr_off_w                : 1;
   uint8_t ftype                    : 3;
@@ -1480,13 +1476,11 @@ typedef struct
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
-uint8_t fsm_lc_clr               :
-  2;  /* fsm_lc_cleared + fsm_lc_clear */
+  uint8_t fsm_lc_clr               : 2;  /* fsm_lc_cleared + fsm_lc_clear */
   uint8_t not_used_01              : 6;
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
   uint8_t not_used_01              : 6;
-uint8_t fsm_lc_clr               :
-  2;  /* fsm_lc_cleared + fsm_lc_clear */
+  uint8_t fsm_lc_clr               : 2;  /* fsm_lc_cleared + fsm_lc_clear */
 #endif /* DRV_BYTE_ORDER */
 } lsm6dsr_fsm_long_counter_clear_t;
 
