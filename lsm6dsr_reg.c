@@ -7369,20 +7369,17 @@ int32_t lsm6dsr_batch_counter_threshold_get(const stmdev_ctx_t *ctx,
   */
 int32_t lsm6dsr_fifo_data_level_get(const stmdev_ctx_t *ctx, uint16_t *val)
 {
-  lsm6dsr_fifo_status1_t fifo_status1;
-  lsm6dsr_fifo_status2_t fifo_status2;
+  lsm6dsr_reg_t fifo_status[2];
   int32_t ret;
 
   ret = lsm6dsr_read_reg(ctx, LSM6DSR_FIFO_STATUS1,
-                         (uint8_t *)&fifo_status1, 1);
+                         (uint8_t*) fifo_status, 2);
 
   if (ret == 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_FIFO_STATUS2,
-                           (uint8_t *)&fifo_status2, 1);
-    *val = fifo_status2.diff_fifo;
+    *val = fifo_status[1].fifo_status2.diff_fifo;
     *val = *val << 8;
-    *val += fifo_status1.diff_fifo;
+    *val += fifo_status[0].fifo_status1.diff_fifo;
   }
 
   return ret;
