@@ -83,7 +83,7 @@ This directory contains the LSM6DSR component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
 <label for="collapse-section5" aria-hidden="true">V2.1.0 / 18-Dec-2024</label>
 <div>
 
@@ -99,7 +99,22 @@ This directory contains the LSM6DSR component drivers.
 ##
 
 </div>
+
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">V2.1.1 / 01-Jul-2025</label>
+<div>
+
+## Main changes
+
+- Fix odr_cal_reg get/set APIs
+- Fix driver formatting options
+- Added pointer to private data in stmdev_ctx_t
+
+##
+
+</div>
 :::
+
 
 :::
 :::
