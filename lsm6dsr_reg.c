@@ -10524,8 +10524,7 @@ int32_t lsm6dsr_fsm_start_address_get(const stmdev_ctx_t *ctx,
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm6dsr_sh_read_data_raw_get(const stmdev_ctx_t *ctx,
-                                     lsm6dsr_emb_sh_read_t *val,
+int32_t lsm6dsr_sh_read_data_raw_get(const stmdev_ctx_t *ctx, uint8_t *val,
                                      uint8_t len)
 {
   int32_t ret;
