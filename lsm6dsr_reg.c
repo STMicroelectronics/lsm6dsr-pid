@@ -1844,68 +1844,7 @@ int32_t lsm6dsr_mem_bank_get(const stmdev_ctx_t *ctx,
 int32_t lsm6dsr_ln_pg_write_byte(const stmdev_ctx_t *ctx, uint16_t add,
                                  uint8_t *val)
 {
-  lsm6dsr_page_rw_t page_rw;
-  lsm6dsr_page_sel_t page_sel;
-  lsm6dsr_page_address_t page_address;
-  int32_t ret;
-
-  ret = lsm6dsr_mem_bank_set(ctx, LSM6DSR_EMBEDDED_FUNC_BANK);
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_rw.page_rw = 0x02U; /* page_write enable */
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
-                           (uint8_t *)&page_sel, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_sel.page_sel = (uint8_t)((add / 256U) & 0x0FU);
-    page_sel.not_used_01 = 1;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
-                            (uint8_t *)&page_sel, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_address.page_addr = (uint8_t)(add - (page_sel.page_sel * 256U));
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_ADDRESS,
-                            (uint8_t *)&page_address, 1);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_VALUE, val, 1);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_rw.page_rw = 0x00; /* page_write disable */
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
-  }
-
-  ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
-
-  return ret;
+  return lsm6dsr_ln_pg_write(ctx, add, val, 1);
 }
 
 /**
@@ -1929,90 +1868,104 @@ int32_t lsm6dsr_ln_pg_write(const stmdev_ctx_t *ctx, uint16_t add,
   int32_t ret;
   uint8_t i ;
 
-  msb = (uint8_t)((add / 256U) & 0x0FU);
+  msb = (uint8_t)((add >> 8) & 0x0FU);
   lsb = (uint8_t)(add - (msb * 256U));
+
   ret = lsm6dsr_mem_bank_set(ctx, LSM6DSR_EMBEDDED_FUNC_BANK);
-
-  if (ret == 0)
+  if (ret != 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
+    return ret;
   }
 
-  if (ret == 0)
+  /* set page write */
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
+                         (uint8_t *)&page_rw, 1);
+  if (ret != 0)
   {
-    page_rw.page_rw = 0x02U; /* page_write enable*/
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
+    goto exit;
+  }
+  page_rw.page_rw = 0x02U; /* page_write enable*/
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
+                          (uint8_t *)&page_rw, 1);
+
+  /* select page */
+  ret += lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
+                          (uint8_t *)&page_sel, 1);
+  if (ret != 0)
+  {
+    goto exit;
+  }
+  page_sel.page_sel = msb;
+  page_sel.not_used_01 = 1;
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
+                          (uint8_t *)&page_sel, 1);
+  if (ret != 0)
+  {
+    goto exit;
   }
 
-  if (ret == 0)
+  /* set page addr */
+  page_address.page_addr = lsb;
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_ADDRESS,
+                          (uint8_t *)&page_address, 1);
+  if (ret != 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
-                           (uint8_t *)&page_sel, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_sel.page_sel = msb;
-    page_sel.not_used_01 = 1;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
-                            (uint8_t *)&page_sel, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_address.page_addr = lsb;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_ADDRESS,
-                            (uint8_t *)&page_address, 1);
+    goto exit;
   }
 
   for (i = 0; i < len; i++)
   {
-    if (ret == 0)
+    ret += lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_VALUE, &buf[i], 1);
+    if (ret != 0)
     {
-      ret += lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_VALUE, &buf[i], 1);
+      goto exit;
+    }
 
-      lsb++;
+    lsb++;
 
-      /* Check if page wrap */
-      if (lsb == 0x00U)
+    /* Check if page wrap */
+    if (lsb == 0x00U)
+    {
+      msb++;
+      ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
+                             (uint8_t *)&page_sel, 1);
+      if (ret != 0)
       {
-        msb++;
-        ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
-                               (uint8_t *)&page_sel, 1);
-        if (ret == 0)
-        {
-          page_sel.page_sel = msb;
-          page_sel.not_used_01 = 1;
-          ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
-                                  (uint8_t *)&page_sel, 1);
-        }
+        goto exit;
+      }
+
+      page_sel.page_sel = msb;
+      page_sel.not_used_01 = 1; // Default value
+      ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
+                              (uint8_t *)&page_sel, 1);
+      if (ret != 0)
+      {
+        goto exit;
       }
     }
   }
 
-  if (ret == 0)
+  page_sel.page_sel = 0;
+  page_sel.not_used_01 = 1; // Default value
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
+                          (uint8_t *)&page_sel, 1);
+  if (ret != 0)
   {
-    page_sel.page_sel = 0;
-    page_sel.not_used_01 = 1;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
-                            (uint8_t *)&page_sel, 1);
+    goto exit;
   }
 
-  if (ret == 0)
+  /* unset page write */
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
+                         (uint8_t *)&page_rw, 1);
+  if (ret != 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
+    goto exit;
   }
+  page_rw.page_rw = 0x00U; /* page_write disable */
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
+                          (uint8_t *)&page_rw, 1);
 
-  if (ret == 0)
-  {
-    page_rw.page_rw = 0x00U; /* page_write disable */
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
-  }
-
+exit:
   ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
 
   return ret;
@@ -2036,59 +1989,66 @@ int32_t lsm6dsr_ln_pg_read_byte(const stmdev_ctx_t *ctx, uint16_t add,
   int32_t ret;
 
   ret = lsm6dsr_mem_bank_set(ctx, LSM6DSR_EMBEDDED_FUNC_BANK);
-
-  if (ret == 0)
+  if (ret != 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
+    return ret;
   }
 
-  if (ret == 0)
+  /* set page write */
+  ret += lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
+                          (uint8_t *)&page_rw, 1);
+  if (ret != 0)
   {
-    page_rw.page_rw = 0x01U; /* page_read enable*/
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
+    goto exit;
+  }
+  page_rw.page_rw = 0x01U; /* page_read enable*/
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
+                          (uint8_t *)&page_rw, 1);
+
+  /* select page */
+  ret += lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
+                          (uint8_t *)&page_sel, 1);
+  if (ret != 0)
+  {
+    goto exit;
+  }
+  page_sel.page_sel = (uint8_t)((add / 256U) & 0x0FU);
+  page_sel.not_used_01 = 1; // Default value
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
+                          (uint8_t *)&page_sel, 1);
+  if (ret != 0)
+  {
+    goto exit;
   }
 
-  if (ret == 0)
+  /* set page addr */
+  page_address.page_addr = (uint8_t)(add - (page_sel.page_sel * 256U));
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_ADDRESS,
+                          (uint8_t *)&page_address, 1);
+  if (ret != 0)
   {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_SEL,
-                           (uint8_t *)&page_sel, 1);
+    goto exit;
   }
 
-  if (ret == 0)
+  /* read value */
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_VALUE, val, 2);
+  if (ret != 0)
   {
-    page_sel.page_sel = (uint8_t)((add / 256U) & 0x0FU);
-    page_sel.not_used_01 = 1;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_SEL,
-                            (uint8_t *)&page_sel, 1);
+    goto exit;
   }
 
-  if (ret == 0)
+  /* unset page read */
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
+                         (uint8_t *)&page_rw, 1);
+  if (ret != 0)
   {
-    page_address.page_addr = (uint8_t)(add - (page_sel.page_sel * 256U));
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_ADDRESS,
-                            (uint8_t *)&page_address, 1);
+    goto exit;
   }
+  page_rw.page_rw = 0x00U; /* page_read disable */
+  ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
+                          (uint8_t *)&page_rw, 1);
 
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_VALUE, val, 2);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_RW,
-                           (uint8_t *)&page_rw, 1);
-  }
-
-  if (ret == 0)
-  {
-    page_rw.page_rw = 0x00U; /* page_read disable */
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_PAGE_RW,
-                            (uint8_t *)&page_rw, 1);
-  }
-
+exit:
   ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
 
   return ret;
