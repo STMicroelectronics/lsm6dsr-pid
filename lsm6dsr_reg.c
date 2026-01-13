@@ -7259,52 +7259,52 @@ int32_t lsm6dsr_fifo_xl_batch_get(const stmdev_ctx_t *ctx,
 
   switch (fifo_ctrl3.bdr_xl)
   {
-    case LSM6DSR_XL_NOT_BATCHED:
+    case 0:
       *val = LSM6DSR_XL_NOT_BATCHED;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_12Hz5:
+    case 1:
       *val = LSM6DSR_XL_BATCHED_AT_12Hz5;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_26Hz:
+    case 2:
       *val = LSM6DSR_XL_BATCHED_AT_26Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_52Hz:
+    case 3:
       *val = LSM6DSR_XL_BATCHED_AT_52Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_104Hz:
+    case 4:
       *val = LSM6DSR_XL_BATCHED_AT_104Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_208Hz:
+    case 5:
       *val = LSM6DSR_XL_BATCHED_AT_208Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_417Hz:
+    case 6:
       *val = LSM6DSR_XL_BATCHED_AT_417Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_833Hz:
+    case 7:
       *val = LSM6DSR_XL_BATCHED_AT_833Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_1667Hz:
+    case 8:
       *val = LSM6DSR_XL_BATCHED_AT_1667Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_3333Hz:
+    case 9:
       *val = LSM6DSR_XL_BATCHED_AT_3333Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_6667Hz:
+    case 10:
       *val = LSM6DSR_XL_BATCHED_AT_6667Hz;
       break;
 
-    case LSM6DSR_XL_BATCHED_AT_6Hz5:
-      *val = LSM6DSR_XL_BATCHED_AT_6Hz5;
+    case 11:
+      *val = LSM6DSR_XL_BATCHED_AT_1Hz6;
       break;
 
     default:
