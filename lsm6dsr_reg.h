@@ -3878,8 +3878,8 @@ int32_t lsm6dsr_sh_master_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
 typedef enum
 {
-  LSM6DSR_EXT_PULL_UP      = 0,
-  LSM6DSR_INTERNAL_PULL_UP = 1,
+  LSM6DSR_INTERNAL_PULL_UP_OFF = 0,
+  LSM6DSR_INTERNAL_PULL_UP_ON  = 1,
 } lsm6dsr_shub_pu_en_t;
 int32_t lsm6dsr_sh_pin_mode_set(const stmdev_ctx_t *ctx,
                                 lsm6dsr_shub_pu_en_t val);
