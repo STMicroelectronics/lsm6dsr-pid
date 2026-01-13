@@ -3209,7 +3209,7 @@ int32_t lsm6dsr_aux_pw_on_ctrl_set(const stmdev_ctx_t *ctx,
 
   if (ret == 0)
   {
-    ctrl7_g.ois_on_en = (uint8_t)val & 0x01U;
+    ctrl7_g.ois_on_en = ((uint8_t)val & 0x02U) >> 1;
     ctrl7_g.ois_on = (uint8_t)val & 0x01U;
     ret = lsm6dsr_write_reg(ctx, LSM6DSR_CTRL7_G,
                             (uint8_t *)&ctrl7_g, 1);
@@ -3239,18 +3239,22 @@ int32_t lsm6dsr_aux_pw_on_ctrl_get(const stmdev_ctx_t *ctx,
     return ret;
   }
 
-  switch (ctrl7_g.ois_on)
+  switch (ctrl7_g.ois_on | (ctrl7_g.ois_on_en << 1))
   {
-    case LSM6DSR_AUX_ON:
-      *val = LSM6DSR_AUX_ON;
+    case 0:
+      *val = LSM6DSR_OIS_OFF;
       break;
 
-    case LSM6DSR_AUX_ON_BY_AUX_INTERFACE:
-      *val = LSM6DSR_AUX_ON_BY_AUX_INTERFACE;
+    case 3:
+      *val = LSM6DSR_OIS_PRIMARY_INTERFACE_ON;
+      break;
+
+    case 1:
+      *val = LSM6DSR_OIS_AUX_INTERFACE_ON;
       break;
 
     default:
-      *val = LSM6DSR_AUX_ON;
+      *val = LSM6DSR_OIS_OFF;
       break;
   }
 
