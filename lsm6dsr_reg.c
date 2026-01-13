@@ -3917,24 +3917,24 @@ int32_t lsm6dsr_aux_gy_lp1_bandwidth_get(const stmdev_ctx_t *ctx,
 
   switch (ctrl2_ois.ftype_ois)
   {
-    case LSM6DSR_351Hz39:
-      *val = LSM6DSR_351Hz39;
+    case 0:
+      *val = LSM6DSR_297Hz;
       break;
 
-    case LSM6DSR_236Hz63:
-      *val = LSM6DSR_236Hz63;
+    case 1:
+      *val = LSM6DSR_222Hz;
       break;
 
-    case LSM6DSR_172Hz70:
-      *val = LSM6DSR_172Hz70;
+    case 2:
+      *val = LSM6DSR_154Hz;
       break;
 
-    case LSM6DSR_937Hz91:
-      *val = LSM6DSR_937Hz91;
+    case 3:
+      *val = LSM6DSR_470Hz;
       break;
 
     default:
-      *val = LSM6DSR_351Hz39;
+      *val = LSM6DSR_297Hz;
       break;
   }
 
@@ -4238,8 +4238,8 @@ int32_t lsm6dsr_aux_xl_bandwidth_get(const stmdev_ctx_t *ctx,
       *val = LSM6DSR_8Hz3;
       break;
 
-    case LSM6DSR_4Hz11:
-      *val = LSM6DSR_4Hz11;
+    case LSM6DSR_4Hz14:
+      *val = LSM6DSR_4Hz14;
       break;
 
     default:
