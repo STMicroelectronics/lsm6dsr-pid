@@ -129,7 +129,7 @@ This directory contains the LSM6DSR component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" aria-hidden="true">V2.3.0 / 07-Oct-2025</label>
 <div>
 
@@ -138,6 +138,22 @@ This directory contains the LSM6DSR component drivers.
 - Aligned ln_pg_write/read implementations
 - Added checks before writes and membank setting
 - Adding CODE_OF_CONDUCT.md and SECURITY.md
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V3.0.0 / 15-Jan-2026</label>
+<div>
+
+## Main changes
+
+- Fix values for odr_t_batch_t enum
+- Fix typo in bdr_xl_t enum
+- Change shub_pu_en_t definition
+- Fix enums variants for ftype_ois and filter_xl_conf_ois
+- Fix ois_on_t enum, add missing OFF variant
 
 ##
 
