@@ -987,7 +987,7 @@ typedef struct
 #define LSM6DSR_INTERNAL_FREQ_FINE           0x63U
 typedef struct
 {
-  uint8_t freq_fine                : 8;
+  int8_t freq_fine                 : 8;
 } lsm6dsr_internal_freq_fine_t;
 
 #define LSM6DSR_INT_OIS                      0x6FU
@@ -2823,6 +2823,7 @@ int32_t lsm6dsr_acceleration_raw_get(const stmdev_ctx_t *ctx, int16_t *val);
 
 int32_t lsm6dsr_fifo_out_raw_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
+int32_t lsm6dsr_odr_cal_reg_set(const stmdev_ctx_t *ctx, int8_t val);
 int32_t lsm6dsr_odr_cal_reg_get(const stmdev_ctx_t *ctx, int8_t *val);
 
 int32_t lsm6dsr_number_of_steps_get(const stmdev_ctx_t *ctx, uint16_t *val);
