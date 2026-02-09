@@ -9698,11 +9698,11 @@ int32_t lsm6dsr_mag_soft_iron_set(const stmdev_ctx_t *ctx, uint16_t *val)
   buff[5] = (uint8_t)(val[2] / 256U);
   buff[4] = (uint8_t)(val[2] - (buff[5] * 256U));
   buff[7] = (uint8_t)(val[3] / 256U);
-  buff[6] = (uint8_t)(val[3] - (buff[1] * 256U));
+  buff[6] = (uint8_t)(val[3] - (buff[7] * 256U));
   buff[9] = (uint8_t)(val[4] / 256U);
-  buff[8] = (uint8_t)(val[4] - (buff[3] * 256U));
+  buff[8] = (uint8_t)(val[4] - (buff[9] * 256U));
   buff[11] = (uint8_t)(val[5] / 256U);
-  buff[10] = (uint8_t)(val[5] - (buff[5] * 256U));
+  buff[10] = (uint8_t)(val[5] - (buff[11] * 256U));
   i = 0x00U;
   ret = lsm6dsr_ln_pg_write_byte(ctx, LSM6DSR_MAG_SI_XX_L,
                                  &buff[i]);
@@ -9900,7 +9900,7 @@ int32_t lsm6dsr_mag_soft_iron_get(const stmdev_ctx_t *ctx, uint16_t *val)
     val[4] = buff[9];
     val[4] = (val[4] * 256U) +  buff[8];
     val[5] = buff[11];
-    val[6] = (val[5] * 256U) +  buff[10];
+    val[5] = (val[5] * 256U) +  buff[10];
   }
 
   return ret;
