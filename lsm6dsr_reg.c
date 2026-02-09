@@ -2009,7 +2009,7 @@ int32_t lsm6dsr_ln_pg_read_byte(const stmdev_ctx_t *ctx, uint16_t add,
   }
 
   /* read value */
-  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_VALUE, val, 2);
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_PAGE_VALUE, val, 1);
   if (ret != 0)
   {
     goto exit;
