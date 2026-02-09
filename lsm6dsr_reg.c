@@ -10257,13 +10257,8 @@ int32_t lsm6dsr_emb_fsm_en_get(const stmdev_ctx_t *ctx, uint8_t *val)
   {
     ret = lsm6dsr_read_reg(ctx, LSM6DSR_EMB_FUNC_EN_B,
                            (uint8_t *)&emb_func_en_b, 1);
-  }
 
-  if (ret == 0)
-  {
     *val = emb_func_en_b.fsm_en;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_EMB_FUNC_EN_B,
-                            (uint8_t *)&emb_func_en_b, 1);
   }
 
   ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
