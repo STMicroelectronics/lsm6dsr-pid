@@ -2980,8 +2980,8 @@ int32_t lsm6dsr_gy_hp_path_internal_get(const stmdev_ctx_t *ctx,
 
 typedef enum
 {
-  LSM6DSR_AUX_PULL_UP_DISC       = 0,
-  LSM6DSR_AUX_PULL_UP_CONNECT    = 1,
+  LSM6DSR_AUX_PULL_UP_DISC       = 1,
+  LSM6DSR_AUX_PULL_UP_CONNECT    = 0,
 } lsm6dsr_ois_pu_dis_t;
 int32_t lsm6dsr_aux_sdo_ocs_mode_set(const stmdev_ctx_t *ctx,
                                      lsm6dsr_ois_pu_dis_t val);
