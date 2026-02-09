@@ -8644,7 +8644,7 @@ int32_t lsm6dsr_den_mark_axis_x_set(const stmdev_ctx_t *ctx, uint8_t val)
 
   if (ret == 0)
   {
-    ctrl9_xl.den_z = (uint8_t)val;
+    ctrl9_xl.den_x = (uint8_t)val;
     ret = lsm6dsr_write_reg(ctx, LSM6DSR_CTRL9_XL,
                             (uint8_t *)&ctrl9_xl, 1);
   }
@@ -8673,7 +8673,7 @@ int32_t lsm6dsr_den_mark_axis_x_get(const stmdev_ctx_t *ctx,
     return ret;
   }
 
-  *val = ctrl9_xl.den_z;
+  *val = ctrl9_xl.den_x;
 
   return ret;
 }
