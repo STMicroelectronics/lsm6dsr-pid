@@ -8988,19 +8988,12 @@ int32_t lsm6dsr_pedo_mode_get(const stmdev_ctx_t *ctx,
 int32_t lsm6dsr_pedo_step_detect_get(const stmdev_ctx_t *ctx,
                                      uint8_t *val)
 {
-  lsm6dsr_emb_func_status_t emb_func_status;
+  lsm6dsr_emb_func_status_mainpage_t emb_func_status;
   int32_t ret;
 
-  ret = lsm6dsr_mem_bank_set(ctx, LSM6DSR_EMBEDDED_FUNC_BANK);
-
-  if (ret == 0)
-  {
-    ret = lsm6dsr_read_reg(ctx, LSM6DSR_EMB_FUNC_STATUS,
-                           (uint8_t *)&emb_func_status, 1);
-    *val = emb_func_status.is_step_det;
-  }
-
-  ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_EMB_FUNC_STATUS_MAINPAGE,
+                         (uint8_t *)&emb_func_status, 1);
+  *val = emb_func_status.is_step_det;
 
   return ret;
 }
