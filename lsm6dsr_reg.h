@@ -3640,8 +3640,8 @@ int32_t lsm6dsr_den_polarity_get(const stmdev_ctx_t *ctx,
 typedef enum
 {
   LSM6DSR_STAMP_IN_GY_DATA     = 0,
-  LSM6DSR_STAMP_IN_XL_DATA     = 1,
-  LSM6DSR_STAMP_IN_GY_XL_DATA  = 2,
+  LSM6DSR_STAMP_IN_XL_DATA     = 2,
+  LSM6DSR_STAMP_IN_GY_XL_DATA  = 1,
 } lsm6dsr_den_xl_g_t;
 int32_t lsm6dsr_den_enable_set(const stmdev_ctx_t *ctx,
                                lsm6dsr_den_xl_g_t val);
