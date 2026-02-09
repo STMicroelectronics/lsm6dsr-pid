@@ -2779,19 +2779,19 @@ int32_t lsm6dsr_temp_flag_data_ready_get(const stmdev_ctx_t *ctx,
                                          uint8_t *val);
 
 int32_t lsm6dsr_xl_usr_offset_x_set(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 int32_t lsm6dsr_xl_usr_offset_x_get(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 
 int32_t lsm6dsr_xl_usr_offset_y_set(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 int32_t lsm6dsr_xl_usr_offset_y_get(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 
 int32_t lsm6dsr_xl_usr_offset_z_set(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 int32_t lsm6dsr_xl_usr_offset_z_get(const stmdev_ctx_t *ctx,
-                                    uint8_t *val);
+                                    int8_t *val);
 
 int32_t lsm6dsr_xl_usr_offset_set(const stmdev_ctx_t *ctx, uint8_t val);
 int32_t lsm6dsr_xl_usr_offset_get(const stmdev_ctx_t *ctx, uint8_t *val);
