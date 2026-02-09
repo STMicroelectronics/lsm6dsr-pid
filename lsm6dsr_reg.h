@@ -1087,6 +1087,7 @@ typedef struct
 #define LSM6DSR_FIFO_DATA_OUT_Y_H            0x7CU
 #define LSM6DSR_FIFO_DATA_OUT_Z_L            0x7DU
 #define LSM6DSR_FIFO_DATA_OUT_Z_H            0x7EU
+
 #define LSM6DSR_PAGE_SEL                     0x02U
 typedef struct
 {
@@ -1966,8 +1967,7 @@ typedef struct
 #define LSM6DSR_FSM_LC_TIMEOUT_L             0x17AU
 #define LSM6DSR_FSM_LC_TIMEOUT_H             0x17BU
 #define LSM6DSR_FSM_PROGRAMS                 0x17CU
-#define LSM6DSR_FSM_START_ADD_L              0x17EU
-#define LSM6DSR_FSM_START_ADD_H              0x17FU
+
 #define LSM6DSR_PEDO_CMD_REG                 0x183U
 typedef struct
 {
@@ -2611,6 +2611,12 @@ typedef struct
   uint8_t sens_hub_endop           : 1;
 #endif /* DRV_BYTE_ORDER */
 } lsm6dsr_status_master_t;
+
+#define LSM6DSR_FSM_LC_TIMEOUT_L             0x17AU
+#define LSM6DSR_FSM_LC_TIMEOUT_H             0x17BU
+#define LSM6DSR_FSM_PROGRAMS                 0x17CU
+#define LSM6DSR_FSM_START_ADD_L              0x17EU
+#define LSM6DSR_FSM_START_ADD_H              0x17FU
 
 /**
   * @}
@@ -3455,7 +3461,7 @@ int32_t lsm6dsr_fifo_stop_on_wtm_get(const stmdev_ctx_t *ctx,
 
 typedef enum
 {
-  LSM6DSR_XL_NOT_BATCHED       =  0,
+  LSM6DSR_XL_NOT_BATCHED        =  0,
   LSM6DSR_XL_BATCHED_AT_12Hz5   =  1,
   LSM6DSR_XL_BATCHED_AT_26Hz    =  2,
   LSM6DSR_XL_BATCHED_AT_52Hz    =  3,
@@ -3566,25 +3572,25 @@ int32_t lsm6dsr_fifo_wtm_flag_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
 typedef enum
 {
-  LSM6DSR_GYRO_NC_TAG    = 1,
-  LSM6DSR_XL_NC_TAG,
-  LSM6DSR_TEMPERATURE_TAG,
-  LSM6DSR_TIMESTAMP_TAG,
-  LSM6DSR_CFG_CHANGE_TAG,
-  LSM6DSR_XL_NC_T_2_TAG,
-  LSM6DSR_XL_NC_T_1_TAG,
-  LSM6DSR_XL_2XC_TAG,
-  LSM6DSR_XL_3XC_TAG,
-  LSM6DSR_GYRO_NC_T_2_TAG,
-  LSM6DSR_GYRO_NC_T_1_TAG,
-  LSM6DSR_GYRO_2XC_TAG,
-  LSM6DSR_GYRO_3XC_TAG,
-  LSM6DSR_SENSORHUB_SLAVE0_TAG,
-  LSM6DSR_SENSORHUB_SLAVE1_TAG,
-  LSM6DSR_SENSORHUB_SLAVE2_TAG,
-  LSM6DSR_SENSORHUB_SLAVE3_TAG,
-  LSM6DSR_STEP_CPUNTER_TAG,
-  LSM6DSR_SENSORHUB_NACK_TAG = 0x19,
+  LSM6DSR_GYRO_NC_TAG           = 0x01,
+  LSM6DSR_XL_NC_TAG             = 0x02,
+  LSM6DSR_TEMPERATURE_TAG       = 0x03,
+  LSM6DSR_TIMESTAMP_TAG         = 0x04,
+  LSM6DSR_CFG_CHANGE_TAG        = 0x05,
+  LSM6DSR_XL_NC_T_2_TAG         = 0x06,
+  LSM6DSR_XL_NC_T_1_TAG         = 0x07,
+  LSM6DSR_XL_2XC_TAG            = 0x08,
+  LSM6DSR_XL_3XC_TAG            = 0x09,
+  LSM6DSR_GYRO_NC_T_2_TAG       = 0x0A,
+  LSM6DSR_GYRO_NC_T_1_TAG       = 0x0B,
+  LSM6DSR_GYRO_2XC_TAG          = 0x0C,
+  LSM6DSR_GYRO_3XC_TAG          = 0x0D,
+  LSM6DSR_SENSORHUB_SLAVE0_TAG  = 0x0E,
+  LSM6DSR_SENSORHUB_SLAVE1_TAG  = 0x0F,
+  LSM6DSR_SENSORHUB_SLAVE2_TAG  = 0x10,
+  LSM6DSR_SENSORHUB_SLAVE3_TAG  = 0x11,
+  LSM6DSR_STEP_COUNTER_TAG      = 0x12,
+  LSM6DSR_SENSORHUB_NACK_TAG    = 0x19,
 } lsm6dsr_fifo_tag_t;
 int32_t lsm6dsr_fifo_sensor_tag_get(const stmdev_ctx_t *ctx,
                                     lsm6dsr_fifo_tag_t *val);
@@ -3721,7 +3727,6 @@ int32_t lsm6dsr_tilt_sens_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
 int32_t lsm6dsr_tilt_flag_data_ready_get(const stmdev_ctx_t *ctx,
                                          uint8_t *val);
-
 int32_t lsm6dsr_mag_sensitivity_set(const stmdev_ctx_t *ctx,
                                     uint16_t val);
 int32_t lsm6dsr_mag_sensitivity_get(const stmdev_ctx_t *ctx,
