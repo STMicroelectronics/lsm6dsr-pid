@@ -3486,7 +3486,7 @@ typedef enum
   LSM6DSR_GY_BATCHED_AT_1667Hz   = 8,
   LSM6DSR_GY_BATCHED_AT_3333Hz   = 9,
   LSM6DSR_GY_BATCHED_AT_6667Hz   = 10,
-  LSM6DSR_GY_BATCHED_6Hz5        = 11,
+  LSM6DSR_GY_BATCHED_AT_6Hz5     = 11,
 } lsm6dsr_bdr_gy_t;
 int32_t lsm6dsr_fifo_gy_batch_set(const stmdev_ctx_t *ctx,
                                   lsm6dsr_bdr_gy_t val);
