@@ -30,54 +30,59 @@ This directory contains the LSM6DSR component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section1" aria-hidden="true">
-<label for="collapse-section1" aria-hidden="true">V1.0.0 / 18-June-2021</label>
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V3.0.0 / 15-Jan-2026</label>
 <div>
 
 ## Main changes
 
-### First release
+- Fix values for odr_t_batch_t enum
+- Fix typo in bdr_xl_t enum
+- Change shub_pu_en_t definition
+- Fix enums variants for ftype_ois and filter_xl_conf_ois
+- Fix ois_on_t enum, add missing OFF variant
 
-- First official release [ref. DS v2.0]
+##
+
+</div>
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
+<label for="collapse-section8" aria-hidden="true">V2.3.0 / 07-Oct-2025</label>
+<div>
+
+## Main changes
+
+- Aligned ln_pg_write/read implementations
+- Added checks before writes and membank setting
+- Adding CODE_OF_CONDUCT.md and SECURITY.md
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section2" aria-hidden="true">
-<label for="collapse-section2" aria-hidden="true">V1.1.0 / 01-June-2023</label>
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
+<label for="collapse-section7" aria-hidden="true">V2.2.0 / 07-Jul-2025</label>
 <div>
 
 ## Main changes
 
-- Add __weak directive to read/write registers routines
-- Extend stmdev_ctx_t structure with mdelay callback
-- repo name changed adding '-pid' extension
+- change sh_read_data_raw_get() API
+- Fix fsm_number_of_programs_set API
+- changed API name into drdy_mask_set/get
+- Fix few typos
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section3" aria-hidden="true">
-<label for="collapse-section3" aria-hidden="true">V2.0.0 / 20-Mar-2024</label>
+<input type="checkbox" id="collapse-section6" aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">V2.1.1 / 01-Jul-2025</label>
 <div>
 
 ## Main changes
 
-- Fixed code style (Artistic Style Version 3.4.13)
-- Add "const" to ctx arg for all APIs
-
-##
-
-</div>
-
-<input type="checkbox" id="collapse-section4" aria-hidden="true">
-<label for="collapse-section4" aria-hidden="true">V2.0.1 / 20-Jun-2024</label>
-<div>
-
-## Main changes
-
-- updated README.md file with tag reference and mdelay description
+- Fix odr_cal_reg get/set APIs
+- Fix driver formatting options
+- Added pointer to private data in stmdev_ctx_t
 
 ##
 
@@ -100,64 +105,59 @@ This directory contains the LSM6DSR component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section6" aria-hidden="true">
-<label for="collapse-section6" aria-hidden="true">V2.1.1 / 01-Jul-2025</label>
+<input type="checkbox" id="collapse-section4" aria-hidden="true">
+<label for="collapse-section4" aria-hidden="true">V2.0.1 / 20-Jun-2024</label>
 <div>
 
 ## Main changes
 
-- Fix odr_cal_reg get/set APIs
-- Fix driver formatting options
-- Added pointer to private data in stmdev_ctx_t
+- updated README.md file with tag reference and mdelay description
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section7" aria-hidden="true">
-<label for="collapse-section7" aria-hidden="true">V2.2.0 / 07-Jul-2025</label>
+<input type="checkbox" id="collapse-section3" aria-hidden="true">
+<label for="collapse-section3" aria-hidden="true">V2.0.0 / 20-Mar-2024</label>
 <div>
 
 ## Main changes
 
-- change sh_read_data_raw_get() API
-- Fix fsm_number_of_programs_set API
-- changed API name into drdy_mask_set/get
-- Fix few typos
+- Fixed code style (Artistic Style Version 3.4.13)
+- Add "const" to ctx arg for all APIs
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section8" aria-hidden="true">
-<label for="collapse-section8" aria-hidden="true">V2.3.0 / 07-Oct-2025</label>
+<input type="checkbox" id="collapse-section2" aria-hidden="true">
+<label for="collapse-section2" aria-hidden="true">V1.1.0 / 01-June-2023</label>
 <div>
 
 ## Main changes
 
-- Aligned ln_pg_write/read implementations
-- Added checks before writes and membank setting
-- Adding CODE_OF_CONDUCT.md and SECURITY.md
+- Add __weak directive to read/write registers routines
+- Extend stmdev_ctx_t structure with mdelay callback
+- repo name changed adding '-pid' extension
 
 ##
 
 </div>
 
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
-<label for="collapse-section9" aria-hidden="true">V3.0.0 / 15-Jan-2026</label>
+<input type="checkbox" id="collapse-section1" aria-hidden="true">
+<label for="collapse-section1" aria-hidden="true">V1.0.0 / 18-June-2021</label>
 <div>
 
 ## Main changes
 
-- Fix values for odr_t_batch_t enum
-- Fix typo in bdr_xl_t enum
-- Change shub_pu_en_t definition
-- Fix enums variants for ftype_ois and filter_xl_conf_ois
-- Fix ois_on_t enum, add missing OFF variant
+### First release
+
+- First official release [ref. DS v2.0]
 
 ##
 
 </div>
+
 :::
 
 :::
