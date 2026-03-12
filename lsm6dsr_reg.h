@@ -2929,7 +2929,7 @@ int32_t lsm6dsr_xl_lp2_on_6d_get(const stmdev_ctx_t *ctx, uint8_t *val);
 
 typedef enum
 {
-  LSM6DSR_HP_PATH_DISABLE_ON_OUT    = 0x00,
+  LSM6DSR_HP_REF_MODE               = 0x37,
   LSM6DSR_SLOPE_ODR_DIV_4           = 0x10,
   LSM6DSR_HP_ODR_DIV_10             = 0x11,
   LSM6DSR_HP_ODR_DIV_20             = 0x12,
@@ -2938,20 +2938,15 @@ typedef enum
   LSM6DSR_HP_ODR_DIV_200            = 0x15,
   LSM6DSR_HP_ODR_DIV_400            = 0x16,
   LSM6DSR_HP_ODR_DIV_800            = 0x17,
-  LSM6DSR_HP_REF_MD_ODR_DIV_10      = 0x31,
-  LSM6DSR_HP_REF_MD_ODR_DIV_20      = 0x32,
-  LSM6DSR_HP_REF_MD_ODR_DIV_45      = 0x33,
-  LSM6DSR_HP_REF_MD_ODR_DIV_100     = 0x34,
-  LSM6DSR_HP_REF_MD_ODR_DIV_200     = 0x35,
-  LSM6DSR_HP_REF_MD_ODR_DIV_400     = 0x36,
-  LSM6DSR_HP_REF_MD_ODR_DIV_800     = 0x37,
-  LSM6DSR_LP_ODR_DIV_10             = 0x01,
-  LSM6DSR_LP_ODR_DIV_20             = 0x02,
-  LSM6DSR_LP_ODR_DIV_45             = 0x03,
-  LSM6DSR_LP_ODR_DIV_100            = 0x04,
-  LSM6DSR_LP_ODR_DIV_200            = 0x05,
-  LSM6DSR_LP_ODR_DIV_400            = 0x06,
-  LSM6DSR_LP_ODR_DIV_800            = 0x07,
+  LSM6DSR_LP_ODR_DIV_2              = 0x01,
+  LSM6DSR_LP_ODR_DIV_4              = 0x00,
+  LSM6DSR_LP_ODR_DIV_10             = 0x81,
+  LSM6DSR_LP_ODR_DIV_20             = 0x82,
+  LSM6DSR_LP_ODR_DIV_45             = 0x83,
+  LSM6DSR_LP_ODR_DIV_100            = 0x84,
+  LSM6DSR_LP_ODR_DIV_200            = 0x85,
+  LSM6DSR_LP_ODR_DIV_400            = 0x86,
+  LSM6DSR_LP_ODR_DIV_800            = 0x87,
 } lsm6dsr_hp_slope_xl_en_t;
 int32_t lsm6dsr_xl_hp_path_on_out_set(const stmdev_ctx_t *ctx,
                                       lsm6dsr_hp_slope_xl_en_t val);

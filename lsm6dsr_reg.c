@@ -2739,21 +2739,42 @@ int32_t lsm6dsr_xl_lp2_on_6d_get(const stmdev_ctx_t *ctx, uint8_t *val)
 int32_t lsm6dsr_xl_hp_path_on_out_set(const stmdev_ctx_t *ctx,
                                       lsm6dsr_hp_slope_xl_en_t val)
 {
+  lsm6dsr_ctrl1_xl_t ctrl1_xl = {0};
   lsm6dsr_ctrl8_xl_t ctrl8_xl;
   int32_t ret;
+  uint8_t is_high_pass = (((uint8_t)val & 0x10) >> 4) == 1 ? 1 : 0;
 
   ret = lsm6dsr_read_reg(ctx, LSM6DSR_CTRL8_XL,
                          (uint8_t *)&ctrl8_xl, 1);
 
-  if (ret == 0)
+  if (ret != 0)
   {
-    ctrl8_xl.hp_slope_xl_en = (((uint8_t)val & 0x10U) >> 4);
-    ctrl8_xl.hp_ref_mode_xl = (((uint8_t)val & 0x20U) >> 5);
-    ctrl8_xl.hpcf_xl = (uint8_t)val & 0x07U;
-    ret = lsm6dsr_write_reg(ctx, LSM6DSR_CTRL8_XL,
-                            (uint8_t *)&ctrl8_xl, 1);
+    return ret;
   }
 
+  ctrl8_xl.hp_slope_xl_en = is_high_pass;
+  ctrl8_xl.hpcf_xl = (uint8_t)val & 0x07U;
+  ctrl8_xl.hp_ref_mode_xl = (((uint8_t)val & 0x20U) >> 5);
+
+  // low pass filter
+  if (is_high_pass == 0)
+  {
+    ret = lsm6dsr_read_reg(ctx, LSM6DSR_CTRL1_XL,
+                           (uint8_t *)&ctrl1_xl, 1);
+
+    if (ret != 0)
+    {
+      return ret;
+    }
+
+    ctrl1_xl.lpf2_xl_en = ((uint8_t)val & 0x80U) >> 7;
+
+    ret = lsm6dsr_write_reg(ctx, LSM6DSR_CTRL1_XL,
+                            (uint8_t *)&ctrl1_xl, 1);
+  }
+
+  ret += lsm6dsr_write_reg(ctx, LSM6DSR_CTRL8_XL,
+                           (uint8_t *)&ctrl8_xl, 1);
   return ret;
 }
 
@@ -2769,115 +2790,84 @@ int32_t lsm6dsr_xl_hp_path_on_out_set(const stmdev_ctx_t *ctx,
 int32_t lsm6dsr_xl_hp_path_on_out_get(const stmdev_ctx_t *ctx,
                                       lsm6dsr_hp_slope_xl_en_t *val)
 {
+  lsm6dsr_ctrl1_xl_t ctrl1_xl;
   lsm6dsr_ctrl8_xl_t ctrl8_xl;
   int32_t ret;
+  uint8_t is_low_pass = 0;
 
-  ret = lsm6dsr_read_reg(ctx, LSM6DSR_CTRL8_XL,
-                         (uint8_t *)&ctrl8_xl, 1);
+  ret = lsm6dsr_read_reg(ctx, LSM6DSR_CTRL1_XL,
+                         (uint8_t *)&ctrl1_xl, 1);
   if (ret != 0)
   {
     return ret;
   }
 
-  switch (((ctrl8_xl.hp_ref_mode_xl << 5) +
-           (ctrl8_xl.hp_slope_xl_en << 4) +
-           ctrl8_xl.hpcf_xl))
+  ret += lsm6dsr_read_reg(ctx, LSM6DSR_CTRL8_XL,
+                          (uint8_t *)&ctrl8_xl, 1);
+  if (ret != 0)
   {
-    case 0x00:
-      *val = LSM6DSR_HP_PATH_DISABLE_ON_OUT;
-      break;
+    return ret;
+  }
 
-    case 0x10:
-      *val = LSM6DSR_SLOPE_ODR_DIV_4;
-      break;
+  if (ctrl8_xl.hp_slope_xl_en == 0 && ctrl1_xl.lpf2_xl_en == 0)
+  {
+    *val = LSM6DSR_LP_ODR_DIV_2;
+  }
+  else
+  {
+    is_low_pass = ctrl8_xl.hp_slope_xl_en == 0 ? 1 : 0;
 
-    case 0x11:
-      *val = LSM6DSR_HP_ODR_DIV_10;
-      break;
+    switch (ctrl8_xl.hpcf_xl)
+    {
+      case 0x00:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_4 : LSM6DSR_SLOPE_ODR_DIV_4;
+        break;
 
-    case 0x12:
-      *val = LSM6DSR_HP_ODR_DIV_20;
-      break;
+      case 0x01:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_10 : LSM6DSR_HP_ODR_DIV_10;
+        break;
 
-    case 0x13:
-      *val = LSM6DSR_HP_ODR_DIV_45;
-      break;
+      case 0x02:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_20 : LSM6DSR_HP_ODR_DIV_20;
+        break;
 
-    case 0x14:
-      *val = LSM6DSR_HP_ODR_DIV_100;
-      break;
+      case 0x03:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_45 : LSM6DSR_HP_ODR_DIV_45;
+        break;
 
-    case 0x15:
-      *val = LSM6DSR_HP_ODR_DIV_200;
-      break;
+      case 0x04:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_100 : LSM6DSR_HP_ODR_DIV_100;
+        break;
 
-    case 0x16:
-      *val = LSM6DSR_HP_ODR_DIV_400;
-      break;
+      case 0x05:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_200 : LSM6DSR_HP_ODR_DIV_200;
+        break;
 
-    case 0x17:
-      *val = LSM6DSR_HP_ODR_DIV_800;
-      break;
+      case 0x06:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_400 : LSM6DSR_HP_ODR_DIV_400;
+        break;
 
-    case 0x31:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_10;
-      break;
+      case 0x07:
+        if (is_low_pass)
+        {
+          *val = LSM6DSR_LP_ODR_DIV_800;
+        }
+        else if (ctrl8_xl.hp_ref_mode_xl == 1)
+        {
+          // The application note requires the HPCF_XL field to be set to 111
+          // in order to enable HP_REF_MODE.
+          *val = LSM6DSR_HP_REF_MODE;
+        }
+        else
+        {
+          *val = LSM6DSR_HP_ODR_DIV_800;
+        }
+        break;
 
-    case 0x32:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_20;
-      break;
-
-    case 0x33:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_45;
-      break;
-
-    case 0x34:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_100;
-      break;
-
-    case 0x35:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_200;
-      break;
-
-    case 0x36:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_400;
-      break;
-
-    case 0x37:
-      *val = LSM6DSR_HP_REF_MD_ODR_DIV_800;
-      break;
-
-    case 0x01:
-      *val = LSM6DSR_LP_ODR_DIV_10;
-      break;
-
-    case 0x02:
-      *val = LSM6DSR_LP_ODR_DIV_20;
-      break;
-
-    case 0x03:
-      *val = LSM6DSR_LP_ODR_DIV_45;
-      break;
-
-    case 0x04:
-      *val = LSM6DSR_LP_ODR_DIV_100;
-      break;
-
-    case 0x05:
-      *val = LSM6DSR_LP_ODR_DIV_200;
-      break;
-
-    case 0x06:
-      *val = LSM6DSR_LP_ODR_DIV_400;
-      break;
-
-    case 0x07:
-      *val = LSM6DSR_LP_ODR_DIV_800;
-      break;
-
-    default:
-      *val = LSM6DSR_HP_PATH_DISABLE_ON_OUT;
-      break;
+      default:
+        *val = is_low_pass ? LSM6DSR_LP_ODR_DIV_4 : LSM6DSR_SLOPE_ODR_DIV_4;
+        break;
+    }
   }
 
   return ret;
