@@ -1881,7 +1881,7 @@ uint64_t lsm6dsr_from_lsb_to_nsec(uint32_t lsb);
 typedef enum
 {
   LSM6DSR_2g   = 0,
-  LSM6DSR_16g  = 1, /* if XL_FS_MODE = '1' -> LSM6DSR_2g */
+  LSM6DSR_16g  = 1,
   LSM6DSR_4g   = 2,
   LSM6DSR_8g   = 3,
 } lsm6dsr_fs_xl_t;
