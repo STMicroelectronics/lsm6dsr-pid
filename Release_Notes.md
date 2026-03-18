@@ -30,7 +30,44 @@ This directory contains the LSM6DSR component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section10" checked aria-hidden="true">
+<label for="collapse-section10" aria-hidden="true">V4.0.0 / 18-Mar-2026</label>
+<div>
+
+## Main changes
+
+- Fix some MISRA issues
+- Add parameter names to stmdev callbacks to fix a MISRA issue
+- Add const qualifier to mag_soft_iron_set API
+- Remove declaration of unimplemented ln_pg_read API
+- Fix hp_slope_xl_en_t LP_ODR_DIV_4 hex value
+- Remove outdated incorrect comment
+- Update sh_read_data_raw_get API to use a raw uint8_t buffer
+- Update fsm_out_get API to read raw uint8_t buffer.
+- Fix xl_hp_path_on_out_set/get API and hp_slope_xl_en_t enum
+- Change switch cases to use hex values
+- Re-order update history with most updated on top
+- Fix style
+- Fix ois_pu_dis_t values
+- Change s4s_tph_val_set/get, express value as number of samples
+- Change shub_odr_t variant 13Hz to 12.5Hz
+- Improve pedo_step_detect_get API
+- Rename GY_BATCHED_6Hz5 to GY_BATCHED_AT_6Hz5
+- Rename odr_ts_batch in dec_ts_batch for FIFO_CTRL4
+- Fix tap_axis_priority_get API
+- Fix ln_pg_write_byte, set read length to 1 byte
+- Fix den_xl_g_t values
+- Fix emb_fsm_en_get, remove useless write
+- Fix mag_soft_iron_set/get APIs
+- Fix den_mark_axis_x_set/get APIs
+- Add odr_cal_reg_set API, change freq_fine type from uint8 to int8
+- Change type of xl_usr_offset_x/y/z_set/get APIs uint8 to int8
+- Fix xl/gy_data_rate_set APIs
+
+##
+
+</div>
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
 <label for="collapse-section9" aria-hidden="true">V3.0.0 / 15-Jan-2026</label>
 <div>
 

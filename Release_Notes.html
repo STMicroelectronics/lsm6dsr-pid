@@ -48,11 +48,48 @@ license</a></p>
 <section id="update-history" class="col-sm-12 col-lg-8">
 <h1>Update history</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section10" checked aria-hidden="true">
+<label for="collapse-section10" aria-hidden="true">V4.0.0 /
+18-Mar-2026</label>
+<div>
+<h2 id="main-changes">Main changes</h2>
+<ul>
+<li>Fix some MISRA issues</li>
+<li>Add parameter names to stmdev callbacks to fix a MISRA issue</li>
+<li>Add const qualifier to mag_soft_iron_set API</li>
+<li>Remove declaration of unimplemented ln_pg_read API</li>
+<li>Fix hp_slope_xl_en_t LP_ODR_DIV_4 hex value</li>
+<li>Remove outdated incorrect comment</li>
+<li>Update sh_read_data_raw_get API to use a raw uint8_t buffer</li>
+<li>Update fsm_out_get API to read raw uint8_t buffer.</li>
+<li>Fix xl_hp_path_on_out_set/get API and hp_slope_xl_en_t enum</li>
+<li>Change switch cases to use hex values</li>
+<li>Re-order update history with most updated on top</li>
+<li>Fix style</li>
+<li>Fix ois_pu_dis_t values</li>
+<li>Change s4s_tph_val_set/get, express value as number of samples</li>
+<li>Change shub_odr_t variant 13Hz to 12.5Hz</li>
+<li>Improve pedo_step_detect_get API</li>
+<li>Rename GY_BATCHED_6Hz5 to GY_BATCHED_AT_6Hz5</li>
+<li>Rename odr_ts_batch in dec_ts_batch for FIFO_CTRL4</li>
+<li>Fix tap_axis_priority_get API</li>
+<li>Fix ln_pg_write_byte, set read length to 1 byte</li>
+<li>Fix den_xl_g_t values</li>
+<li>Fix emb_fsm_en_get, remove useless write</li>
+<li>Fix mag_soft_iron_set/get APIs</li>
+<li>Fix den_mark_axis_x_set/get APIs</li>
+<li>Add odr_cal_reg_set API, change freq_fine type from uint8 to
+int8</li>
+<li>Change type of xl_usr_offset_x/y/z_set/get APIs uint8 to int8</li>
+<li>Fix xl/gy_data_rate_set APIs</li>
+</ul>
+<h2 id="section"></h2>
+</div>
+<input type="checkbox" id="collapse-section9" aria-hidden="true">
 <label for="collapse-section9" aria-hidden="true">V3.0.0 /
 15-Jan-2026</label>
 <div>
-<h2 id="main-changes">Main changes</h2>
+<h2 id="main-changes-1">Main changes</h2>
 <ul>
 <li>Fix values for odr_t_batch_t enum</li>
 <li>Fix typo in bdr_xl_t enum</li>
@@ -60,50 +97,50 @@ license</a></p>
 <li>Fix enums variants for ftype_ois and filter_xl_conf_ois</li>
 <li>Fix ois_on_t enum, add missing OFF variant</li>
 </ul>
-<h2 id="section"></h2>
+<h2 id="section-1"></h2>
 </div>
 <input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" aria-hidden="true">V2.3.0 /
 07-Oct-2025</label>
 <div>
-<h2 id="main-changes-1">Main changes</h2>
+<h2 id="main-changes-2">Main changes</h2>
 <ul>
 <li>Aligned ln_pg_write/read implementations</li>
 <li>Added checks before writes and membank setting</li>
 <li>Adding CODE_OF_CONDUCT.md and SECURITY.md</li>
 </ul>
-<h2 id="section-1"></h2>
+<h2 id="section-2"></h2>
 </div>
 <input type="checkbox" id="collapse-section7" aria-hidden="true">
 <label for="collapse-section7" aria-hidden="true">V2.2.0 /
 07-Jul-2025</label>
 <div>
-<h2 id="main-changes-2">Main changes</h2>
+<h2 id="main-changes-3">Main changes</h2>
 <ul>
 <li>change sh_read_data_raw_get() API</li>
 <li>Fix fsm_number_of_programs_set API</li>
 <li>changed API name into drdy_mask_set/get</li>
 <li>Fix few typos</li>
 </ul>
-<h2 id="section-2"></h2>
+<h2 id="section-3"></h2>
 </div>
 <input type="checkbox" id="collapse-section6" aria-hidden="true">
 <label for="collapse-section6" aria-hidden="true">V2.1.1 /
 01-Jul-2025</label>
 <div>
-<h2 id="main-changes-3">Main changes</h2>
+<h2 id="main-changes-4">Main changes</h2>
 <ul>
 <li>Fix odr_cal_reg get/set APIs</li>
 <li>Fix driver formatting options</li>
 <li>Added pointer to private data in stmdev_ctx_t</li>
 </ul>
-<h2 id="section-3"></h2>
+<h2 id="section-4"></h2>
 </div>
 <input type="checkbox" id="collapse-section5" aria-hidden="true">
 <label for="collapse-section5" aria-hidden="true">V2.1.0 /
 18-Dec-2024</label>
 <div>
-<h2 id="main-changes-4">Main changes</h2>
+<h2 id="main-changes-5">Main changes</h2>
 <ul>
 <li>Read always both FIFO_STATUS1 and FIFO_STATUS2 regs</li>
 <li>Fixed a bug in <code>lsm6dsr_fifo_watermark_set</code></li>
@@ -112,52 +149,52 @@ license</a></p>
 <li>Fix den_x &lt;-&gt; den_z swap</li>
 <li>Faster lsm6dsr_fifo_data_level_get</li>
 </ul>
-<h2 id="section-4"></h2>
+<h2 id="section-5"></h2>
 </div>
 <input type="checkbox" id="collapse-section4" aria-hidden="true">
 <label for="collapse-section4" aria-hidden="true">V2.0.1 /
 20-Jun-2024</label>
 <div>
-<h2 id="main-changes-5">Main changes</h2>
+<h2 id="main-changes-6">Main changes</h2>
 <ul>
 <li>updated README.md file with tag reference and mdelay
 description</li>
 </ul>
-<h2 id="section-5"></h2>
+<h2 id="section-6"></h2>
 </div>
 <input type="checkbox" id="collapse-section3" aria-hidden="true">
 <label for="collapse-section3" aria-hidden="true">V2.0.0 /
 20-Mar-2024</label>
 <div>
-<h2 id="main-changes-6">Main changes</h2>
+<h2 id="main-changes-7">Main changes</h2>
 <ul>
 <li>Fixed code style (Artistic Style Version 3.4.13)</li>
 <li>Add “const” to ctx arg for all APIs</li>
 </ul>
-<h2 id="section-6"></h2>
+<h2 id="section-7"></h2>
 </div>
 <input type="checkbox" id="collapse-section2" aria-hidden="true">
 <label for="collapse-section2" aria-hidden="true">V1.1.0 /
 01-June-2023</label>
 <div>
-<h2 id="main-changes-7">Main changes</h2>
+<h2 id="main-changes-8">Main changes</h2>
 <ul>
 <li>Add __weak directive to read/write registers routines</li>
 <li>Extend stmdev_ctx_t structure with mdelay callback</li>
 <li>repo name changed adding ‘-pid’ extension</li>
 </ul>
-<h2 id="section-7"></h2>
+<h2 id="section-8"></h2>
 </div>
 <input type="checkbox" id="collapse-section1" aria-hidden="true">
 <label for="collapse-section1" aria-hidden="true">V1.0.0 /
 18-June-2021</label>
 <div>
-<h2 id="main-changes-8">Main changes</h2>
+<h2 id="main-changes-9">Main changes</h2>
 <h3 id="first-release">First release</h3>
 <ul>
 <li>First official release [ref. DS v2.0]</li>
 </ul>
-<h2 id="section-8"></h2>
+<h2 id="section-9"></h2>
 </div>
 </div>
 </section>
