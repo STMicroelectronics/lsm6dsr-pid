@@ -9684,7 +9684,7 @@ int32_t lsm6dsr_mag_offset_get(const stmdev_ctx_t *ctx, int16_t *val)
   * @retval        Interface status (MANDATORY: return 0 -> no Error).
   *
   */
-int32_t lsm6dsr_mag_soft_iron_set(const stmdev_ctx_t *ctx, uint16_t *val)
+int32_t lsm6dsr_mag_soft_iron_set(const stmdev_ctx_t *ctx, const uint16_t *val)
 {
   uint8_t buff[12];
   int32_t ret;

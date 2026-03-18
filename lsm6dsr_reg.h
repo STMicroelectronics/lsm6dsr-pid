@@ -2949,7 +2949,7 @@ int32_t lsm6dsr_mag_offset_set(const stmdev_ctx_t *ctx, int16_t *val);
 int32_t lsm6dsr_mag_offset_get(const stmdev_ctx_t *ctx, int16_t *val);
 
 int32_t lsm6dsr_mag_soft_iron_set(const stmdev_ctx_t *ctx,
-                                  uint16_t *val);
+                                  const uint16_t *val);
 int32_t lsm6dsr_mag_soft_iron_get(const stmdev_ctx_t *ctx,
                                   uint16_t *val);
 
