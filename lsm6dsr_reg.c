@@ -350,6 +350,9 @@ int32_t lsm6dsr_xl_data_rate_set(const stmdev_ctx_t *ctx,
             }
 
             break;
+
+          default:
+            break;
         }
       }
     }
@@ -5255,7 +5258,7 @@ int32_t lsm6dsr_int_notification_get(const stmdev_ctx_t *ctx,
                                      lsm6dsr_lir_t *val)
 {
   lsm6dsr_tap_cfg0_t tap_cfg0;
-  lsm6dsr_page_rw_t page_rw;
+  lsm6dsr_page_rw_t page_rw = {0};
   int32_t ret;
 
   *val = LSM6DSR_ALL_INT_PULSED;
@@ -7848,8 +7851,8 @@ int32_t lsm6dsr_fifo_data_level_get(const stmdev_ctx_t *ctx,
                                     uint16_t *val)
 {
   uint8_t reg[2];
-  lsm6dsr_fifo_status1_t *fifo_status1 = (lsm6dsr_fifo_status1_t *)&reg[0];
-  lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
+  const lsm6dsr_fifo_status1_t *fifo_status1 = (lsm6dsr_fifo_status1_t *)&reg[0];
+  const lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -7924,7 +7927,7 @@ int32_t lsm6dsr_fifo_full_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 int32_t lsm6dsr_fifo_ovr_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   uint8_t reg[2];
-  lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
+  const lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -7948,7 +7951,7 @@ int32_t lsm6dsr_fifo_ovr_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 int32_t lsm6dsr_fifo_wtm_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 {
   uint8_t reg[2];
-  lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
+  const lsm6dsr_fifo_status2_t *fifo_status2 = (lsm6dsr_fifo_status2_t *)&reg[1];
   int32_t ret;
 
   /* read both FIFO_STATUS1 + FIFO_STATUS2 regs */
@@ -11336,7 +11339,7 @@ int32_t lsm6dsr_sh_write_mode_set(const stmdev_ctx_t *ctx,
 int32_t lsm6dsr_sh_write_mode_get(const stmdev_ctx_t *ctx,
                                   lsm6dsr_write_once_t *val)
 {
-  lsm6dsr_master_config_t master_config;
+  lsm6dsr_master_config_t master_config = {0};
   int32_t ret;
 
   ret = lsm6dsr_mem_bank_set(ctx, LSM6DSR_SENSOR_HUB_BANK);
@@ -11348,6 +11351,11 @@ int32_t lsm6dsr_sh_write_mode_get(const stmdev_ctx_t *ctx,
   }
 
   ret += lsm6dsr_mem_bank_set(ctx, LSM6DSR_USER_BANK);
+
+  if (ret != 0)
+  {
+    return ret;
+  }
 
   switch (master_config.write_once)
   {
