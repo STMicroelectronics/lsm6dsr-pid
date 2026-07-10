@@ -30,7 +30,23 @@ This directory contains the LSM6DSR component drivers.
 # Update history
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section10" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section11" checked aria-hidden="true">
+<label for="collapse-section11" aria-hidden="true">V4.1.0 / 10-Jul-2026</label>
+<div>
+
+## Main changes
+
+- Fix build in xl/gy data_rate_set API
+- (origin/master, origin/HEAD) Add sign specification to bitmask
+- Fix MISRA issues
+- Fix MISRA issues, fix some hex values in switch statements
+- Add variable initialization in all APIs
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section10" aria-hidden="true">
 <label for="collapse-section10" aria-hidden="true">V4.0.0 / 18-Mar-2026</label>
 <div>
 
@@ -67,6 +83,7 @@ This directory contains the LSM6DSR component drivers.
 ##
 
 </div>
+
 <input type="checkbox" id="collapse-section9" aria-hidden="true">
 <label for="collapse-section9" aria-hidden="true">V3.0.0 / 15-Jan-2026</label>
 <div>
