@@ -259,7 +259,7 @@ int32_t lsm6dsr_xl_data_rate_set(const stmdev_ctx_t *ctx,
 {
   lsm6dsr_odr_xl_t odr_xl =  val;
   lsm6dsr_emb_fsm_enable_t fsm_enable = {0};
-  lsm6dsr_fsm_odr_t fsm_odr = {0};
+  lsm6dsr_fsm_odr_t fsm_odr = LSM6DSR_ODR_FSM_12Hz5;
   lsm6dsr_ctrl1_xl_t ctrl1_xl = {0};
   int32_t ret = 0;
 
@@ -557,7 +557,7 @@ int32_t lsm6dsr_gy_data_rate_set(const stmdev_ctx_t *ctx,
 {
   lsm6dsr_odr_g_t odr_gy =  val;
   lsm6dsr_emb_fsm_enable_t fsm_enable = {0};
-  lsm6dsr_fsm_odr_t fsm_odr = {0};
+  lsm6dsr_fsm_odr_t fsm_odr = LSM6DSR_ODR_FSM_12Hz5;
   lsm6dsr_ctrl2_g_t ctrl2_g = {0};
   int32_t ret = 0;
 
